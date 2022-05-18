@@ -16,7 +16,7 @@
             android:configChanges="orientation|keyboardHidden"
             android:exported="true"
             android:screenOrientation="user"
-            android:theme="@android:style/Theme.NoTitleBar">
+            android:theme="@style/ActivityTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
