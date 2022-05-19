@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/appBackground"
+    android:background="@color/background"
     android:gravity="center"
     android:orientation="vertical"
     tools:context=".MainActivity">
@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="@string/app_name"
-        android:textColor="@color/textDefault"
+        android:textColor="@color/text"
         android:textSize="50sp"
         android:textStyle="bold" />
 
@@ -24,8 +24,8 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="5sp"
-        android:text="@string/content"
-        android:textColor="@color/textDefault"
+        android:text="此处显示听写内容"
+        android:textColor="@color/text"
         android:textSize="35sp"
         android:textStyle="bold" />
 
@@ -35,12 +35,12 @@
         android:layout_height="wrap_content"
         android:background="@null"
         android:gravity="center"
-        android:hint="@string/text"
+        android:hint="请输入你的答案"
         android:imeOptions="flagNoExtractUi"
         android:minHeight="48dp"
         android:singleLine="true"
-        android:textColor="@color/textDefault"
-        android:textColorHint="@color/textHint"
+        android:textColor="@color/text"
+        android:textColorHint="@color/text_hint"
         android:textSize="30sp"
         android:textStyle="bold"
         tools:ignore="Autofill,TextFields" />
@@ -50,8 +50,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="@string/answer"
-        android:textColor="@color/textDefault"
+        android:text="此处显示答案"
+        android:textColor="@color/text"
         android:textSize="28sp"
         android:textStyle="bold" />
 
