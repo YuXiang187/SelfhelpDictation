@@ -121,7 +121,7 @@ public class MainActivity extends Activity {
     private void judge() {
         if (textTmp.equals(line[1])) {
             title.setText("回答正确");
-        } else if (textTmp.equals("")) {
+        } else if ("".equals(textTmp)) {
             title.setText("未作答");
         } else {
             title.setText("回答错误");
