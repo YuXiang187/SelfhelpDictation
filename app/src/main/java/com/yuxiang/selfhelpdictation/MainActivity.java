@@ -1,6 +1,8 @@
 package com.yuxiang.selfhelpdictation;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.media.MediaPlayer;
@@ -18,6 +20,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +45,8 @@ public class MainActivity extends Activity {
     private EditText text;
     private TextView answer;
 
+    private SharedPreferences setting;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,8 +66,10 @@ public class MainActivity extends Activity {
             answer.setPadding(0, (int) (5 * (getResources().getDisplayMetrics().density) + 0.5f), 0, (int) (215 * (getResources().getDisplayMetrics().density) + 0.5f));
         }
 
+        setting = this.getSharedPreferences("setting", Context.MODE_PRIVATE);
+
         isRespond = false;
-        isPlaySound = true;
+        isPlaySound = setting.getBoolean("is_play_sound", true);
         file = new File("/storage/emulated/0/Download/test.txt");
         isReady = (file.exists() && (PackageManager.PERMISSION_GRANTED == getPackageManager().checkPermission("android.permission.READ_EXTERNAL_STORAGE", "com.yuxiang.selfhelpdictation")));
         column = new ArrayList<>();
@@ -182,6 +189,9 @@ public class MainActivity extends Activity {
                 text.setText(line[1]);
             } else {
                 isPlaySound = !isPlaySound;
+                SharedPreferences.Editor editor = setting.edit();
+                editor.putBoolean("is_play_sound", isPlaySound);
+                editor.apply();
                 if (isPlaySound) {
                     Toast.makeText(this, "语音播报已开启", Toast.LENGTH_SHORT).show();
                 } else {
