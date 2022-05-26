@@ -18,6 +18,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,7 +58,7 @@ public class MainActivity extends Activity {
         if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
             answer.setPadding(0, (int) (5 * (getResources().getDisplayMetrics().density) + 0.5f), 0, (int) (5 * (getResources().getDisplayMetrics().density) + 0.5f));
         } else if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-            answer.setPadding(0, (int) (5 * (getResources().getDisplayMetrics().density) + 0.5f), 0, (int) (200 * (getResources().getDisplayMetrics().density) + 0.5f));
+            answer.setPadding(0, (int) (5 * (getResources().getDisplayMetrics().density) + 0.5f), 0, (int) (215 * (getResources().getDisplayMetrics().density) + 0.5f));
         }
 
         isRespond = false;
@@ -97,7 +98,7 @@ public class MainActivity extends Activity {
         if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
             answer.setPadding(0, (int) (5 * (getResources().getDisplayMetrics().density) + 0.5f), 0, (int) (5 * (getResources().getDisplayMetrics().density) + 0.5f));
         } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
-            answer.setPadding(0, (int) (5 * (getResources().getDisplayMetrics().density) + 0.5f), 0, (int) (200 * (getResources().getDisplayMetrics().density) + 0.5f));
+            answer.setPadding(0, (int) (5 * (getResources().getDisplayMetrics().density) + 0.5f), 0, (int) (215 * (getResources().getDisplayMetrics().density) + 0.5f));
         }
     }
 
@@ -121,7 +122,11 @@ public class MainActivity extends Activity {
         answer.setText(line[1]);
         isRespond = !textTmp.equals(line[1]);
         if (isPlaySound) {
-            playMusic("https://fanyi.sogou.com/reventondc/synthesis?text=" + line[1] + "&speed=1&lang=zh-CHS&from=translateweb&speaker=6");
+            try {
+                playMusic("https://fanyi.sogou.com/reventondc/synthesis?text=" + URLEncoder.encode(line[1], "utf-8") + "&speed=1&lang=zh-CHS&from=translateweb&speaker=6");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
         }
     }
 
