@@ -86,12 +86,7 @@ public class MainActivity extends Activity {
             return true;
         });
 
-        title.setOnClickListener(view -> {
-            if (column.size() != 0) {
-                text.setText(line[1]);
-            }
-            check();
-        });
+        title.setOnClickListener(view -> check());
     }
 
     @Override
