@@ -80,22 +80,17 @@ public class MainActivity extends Activity {
             if (actionId == EditorInfo.IME_ACTION_SEND || actionId == EditorInfo.IME_ACTION_DONE || (event != null) && KeyEvent.KEYCODE_ENTER == event.getKeyCode() && KeyEvent.ACTION_DOWN == event.getAction()) {
                 if ((System.currentTimeMillis() - enterTile) > 200) {
                     enterTile = System.currentTimeMillis();
-                    if (isReady) {
-                        textTmp = text.getText().toString();
-                        if (column.size() == 0) {
-                            readFile();
-                        }
-                        if (isRespond) {
-                            judge();
-                        } else {
-                            respond();
-                        }
-                    } else {
-                        Toast.makeText(MainActivity.this, "没有存储权限或文件不存在", Toast.LENGTH_SHORT).show();
-                    }
+                    check();
                 }
             }
             return true;
+        });
+
+        title.setOnClickListener(view -> {
+            if (column.size() != 0) {
+                text.setText(line[1]);
+            }
+            check();
         });
     }
 
@@ -106,6 +101,22 @@ public class MainActivity extends Activity {
             answer.setPadding(0, (int) (5 * (getResources().getDisplayMetrics().density) + 0.5f), 0, (int) (5 * (getResources().getDisplayMetrics().density) + 0.5f));
         } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
             answer.setPadding(0, (int) (5 * (getResources().getDisplayMetrics().density) + 0.5f), 0, (int) (215 * (getResources().getDisplayMetrics().density) + 0.5f));
+        }
+    }
+
+    private void check() {
+        if (isReady) {
+            textTmp = text.getText().toString();
+            if (column.size() == 0) {
+                readFile();
+            }
+            if (isRespond) {
+                judge();
+            } else {
+                respond();
+            }
+        } else {
+            Toast.makeText(MainActivity.this, "没有存储权限或文件不存在", Toast.LENGTH_SHORT).show();
         }
     }
 
