@@ -1,6 +1,8 @@
 package com.yuxiang.selfhelpdictation;
 
 import android.app.Activity;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -46,6 +48,8 @@ public class MainActivity extends Activity {
     private TextView answer;
 
     private SharedPreferences setting;
+    private ClipboardManager cm;
+    private ClipData clipData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +79,7 @@ public class MainActivity extends Activity {
         column = new ArrayList<>();
 
         enterTile = System.currentTimeMillis();
+        cm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
 
         text.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_SEND || actionId == EditorInfo.IME_ACTION_DONE || (event != null) && KeyEvent.KEYCODE_ENTER == event.getKeyCode() && KeyEvent.ACTION_DOWN == event.getAction()) {
@@ -87,6 +92,14 @@ public class MainActivity extends Activity {
         });
 
         title.setOnClickListener(view -> check());
+
+        answer.setOnClickListener(view -> {
+            if (!"*".equals(answer.getText().toString())) {
+                clipData = ClipData.newPlainText("answer", answer.getText().toString());
+                cm.setPrimaryClip(clipData);
+                Toast.makeText(this, "文本复制成功", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
