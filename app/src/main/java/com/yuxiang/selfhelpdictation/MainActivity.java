@@ -30,7 +30,7 @@ import java.util.List;
 public class MainActivity extends Activity {
 
     private long exitTime = 0;
-    private long enterTile;
+    private long enterTime;
 
     private List<String> column;
     private String[] line;
@@ -78,13 +78,13 @@ public class MainActivity extends Activity {
         isReady = (file.exists() && (PackageManager.PERMISSION_GRANTED == getPackageManager().checkPermission("android.permission.READ_EXTERNAL_STORAGE", "com.yuxiang.selfhelpdictation")));
         column = new ArrayList<>();
 
-        enterTile = System.currentTimeMillis();
+        enterTime = System.currentTimeMillis();
         cm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
 
         text.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_SEND || actionId == EditorInfo.IME_ACTION_DONE || (event != null) && KeyEvent.KEYCODE_ENTER == event.getKeyCode() && KeyEvent.ACTION_DOWN == event.getAction()) {
-                if ((System.currentTimeMillis() - enterTile) > 200) {
-                    enterTile = System.currentTimeMillis();
+                if ((System.currentTimeMillis() - enterTime) > 200) {
+                    enterTime = System.currentTimeMillis();
                     check();
                 }
             }
